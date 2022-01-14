@@ -1,4 +1,5 @@
 require_relative '../models/user.rb'
+require 'date'
 
 class UsersView
   def initialize(users, order_by)
@@ -7,7 +8,7 @@ class UsersView
 
   def general_view
     users.map! do |user|
-      [user.first_name, user.city, user.birthdate].join(', ')
+      [user.first_name, user.city, user.birthdate.strftime('%-m/%-d/%-Y')].join(', ')
     end
   end
 
