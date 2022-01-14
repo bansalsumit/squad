@@ -3,7 +3,7 @@ require_relative '../services/csv_handler.rb'
 module FormatHelper
   AVAILABLE_FORMAT = { dollar_format: '$', percent_format: '%' }
 
-  def get_csv_file(params)
+  def get_users_data(params)
     params = remove_all_trailing_spaces(params)
     params = convert_all_format_to_coma(params)
     csv_data = generate_csv_file_with_combine_data(params)
