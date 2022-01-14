@@ -12,8 +12,6 @@ class User
 
   private
 
-  attr_reader :last_name
-
   def self.sort_by(users, attr)
     users.sort_by! do |user|
       user.send(attr)
