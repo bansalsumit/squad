@@ -4,7 +4,6 @@ module FormatHelper
   AVAILABLE_FORMAT = { dollar_format: '$', percent_format: '%' }
 
   def get_users_data(params)
-    params = remove_all_trailing_spaces(params)
     params = convert_all_format_to_coma(params)
     csv_data = generate_csv_file_with_combine_data(params)
   end
@@ -36,15 +35,6 @@ module FormatHelper
         arr += csv.users
       end
       arr
-    end
-  end
-
-  def remove_all_trailing_spaces(params)
-    params.keys.reduce({}) do |hash, key|
-      data = params[key]
-      data = data.gsub(' ', '') if data.is_a?(String)
-      hash[key] = data
-      hash
     end
   end
 end
