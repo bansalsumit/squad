@@ -1,12 +1,16 @@
+require_relative '../services/csv_handler.rb'
+
 module FormatHelper
   AVAILABLE_FORMAT = { dollar_format: '$', percent_format: '%' }
 
   def get_csv_file(params)
+    params = remove_all_trailing_spaces(params)
     params = convert_all_format_to_coma(params)
+    csv_data = generate_csv_file_with_combine_data(params)
   end
 
   def convert_to_comma_separated_data(format_type, str)
-    str.gsub(format_type, ', ')
+    str.gsub(format_type, ',')
   end
 
   def convert_all_format_to_coma(params)
@@ -22,5 +26,25 @@ module FormatHelper
 
   def check_format_available?(sym)
     AVAILABLE_FORMAT.keys.include?(sym)
+  end
+
+  def generate_csv_file_with_combine_data(params)
+    params.keys.reduce([]) do |arr, key|
+      if check_format_available?(key)
+        csv = CsvHandler.new
+        csv.read_in_csv_data(params[key])
+        arr += csv.users
+      end
+      arr
+    end
+  end
+
+  def remove_all_trailing_spaces(params)
+    params.keys.reduce({}) do |hash, key|
+      data = params[key]
+      data = data.gsub(' ', '') if data.is_a?(String)
+      hash[key] = data
+      hash
+    end
   end
 end
