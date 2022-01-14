@@ -18,10 +18,3 @@ class PeopleController
 
   attr_reader :params
 end
-
-params = {
-  dollar_format: File.read('spec/fixtures/people_by_dollar.txt'),
-  percent_format: File.read('spec/fixtures/people_by_percent.txt'),
-  order: :first_name,
-}
-p PeopleController.new(params).normalize
